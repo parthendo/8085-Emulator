@@ -1,0 +1,13 @@
+﻿				8085 Debugger Mode 
+->Press “b” to set breakpoints followed by line numbers where you want to set breakpoints. 
+  e.g.  b 12 for setting breakpoint on line 12
+ 
+->Press “r” to run the program.
+
+->Press “p” to print value of register or memory location.
+  e.g. p A for printing value of register A
+       p x2500 for printing value of location x2500
+
+->Press “s” to run the program, one instruction at a time
+
+->Press “q” to quit debugger
