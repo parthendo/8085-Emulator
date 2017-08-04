@@ -9,10 +9,10 @@ branching commands: JMP, JC, JNC, JZ, JNZ
 
 It also contains a debugger with the following commands:
 
- “b” to set breakpoints followed by line numbers where you want to set breakpoints. 
+“b” to set breakpoints followed by line numbers where you want to set breakpoints. 
   e.g.  b 12 for setting breakpoint on line 12
- “r” to run the program.
- “p” to print value of register or memory location.
+“r” to run the program.
+“p” to print value of register or memory location.
   e.g. p A for printing value of register A
        p x2500 for printing value of location x2500
 “s” to run the program, one instruction at a time
