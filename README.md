@@ -25,4 +25,4 @@ This project is a joint contribution of:
 Hardik Gaur (hardikgaur@geu.ac.in)
 Parth Trehan (parthendo@geu.ac.in)
 
-Please feel free to drop an email.
+Please feel free to drop an E-mail.
