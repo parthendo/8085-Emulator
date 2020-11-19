@@ -97,7 +97,7 @@ bool validityFile(string command){
 					break;
 			}
 		}
-	return flag;
+		return flag;
 	}
 	return flag;
 }
