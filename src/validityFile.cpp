@@ -1,5 +1,5 @@
-#include "MASTER.h"
-#include "tools.h"
+#include "header/MASTER.h"
+#include "header/tools.h"
 bool alien(string str){
 	
 	int l = str.length();

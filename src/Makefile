@@ -17,7 +17,7 @@ $(ODIR)/%.o: %.cpp $(DEPS)
 		$(CC) -c -o $@ $< $(CFLAGS)
 	
 setup: $(OBJ)
-	g++ -o $@ $^ $(CFLAGS) $(LIBS)
+	clang++ -o $@ $^ $(CFLAGS) $(LIBS)
 
 .PHONY: clean
 

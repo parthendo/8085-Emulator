@@ -1,9 +1,10 @@
 #include "MASTER.h"
 
-string decimalToHex(int* deciml)
+string decimalToHex(int deciml[])
 {
 	string hex="";
-	int size=sizeof(deciml)/sizeof(deciml[0]);
+	int size = *(&deciml+1)-deciml;
+	//int size=sizeof(deciml)/sizeof(deciml[0]);
 	for(int i=0;i<size;i++)
 	{
 		if(deciml[i]>=0 && deciml[i]<=9)
