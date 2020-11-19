@@ -11,8 +11,11 @@ bool validityAddress(string data)
 		for(int i=0;i<l;i++)
 			if(( data[i]>='0' && data[i]<='9')||( data[i]>='A' && data[i]<='F' ))
 				flag = true;
-			else
+			else{
+			
 				flag = false;
+				break;
+		}
 		return flag;
 	}
 	else

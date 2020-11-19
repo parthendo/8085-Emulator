@@ -16,7 +16,7 @@ bool alien(string str){
 bool argumentValidation(vector<string> &memory,string str){
 	
 	string zero[] = {"HLT","CMA","XCHG"};
-	string uno[] = {"CMP","JMP","JC","JNC","JZ","JNZ","ADD","ADI","SUB","SUI","INR","INX","DCR","DCX","DAD","LDA","STA","SHLD","LHLD","STAX"};
+	string uno[] = {"CMP","JMP","JC","JNC","JZ","JNZ","ADD","ADI","SUB","SUI","INR","INX","DCR","DCX","DAD","LDA","STA","SHLD","LHLD","STAX","MOVE"};
 	string dos[] = {"SET","MOV","MVI","LXI"};
 	int length = sizeof(zero)/sizeof(zero[0]);
 	for(int i=0;i<length;i++){
@@ -86,10 +86,8 @@ bool validityFile(string command){
 							flag = validityRegisters(temp);
 						break;
 					case 2:
-						flag = validityData(temp);
-						break;
 					case 4:
-						flag = validityAddress(temp);
+						flag = validityHexadecimal(temp);
 						break;
 					default:
 						flag = false;

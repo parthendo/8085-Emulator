@@ -10,6 +10,7 @@ void hexToDecimal(string,int[]);
 bool validityRegisters(string);
 bool validityRegisterPair(string);
 bool validityData(string);
+bool validityHexadecimal(string);
 int registerNumber(string);
 bool validityFile(string);
 string increaseAddress(string);
