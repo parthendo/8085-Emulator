@@ -18,35 +18,17 @@ There are 5 basic modules which constitute the entire functionality of the emula
 
 All the instructions mentioned above utilize the fifth module which consist the basic tools required to support all the other modules.
 
-1. tool.h: The current file consists the definition to the functions below
- * validityData: Takes an 8-bit data and checks for its validity 
- * hexAdd: Takes two 8-bit numbers as input and adds them and set the flag registers accordingly
- * hexSub: Takes two 8-bit numbers as input and subtracts them and set the flag registers accordingly
- * hexAdd16bit: Takes two 16-bit numbers as input and adds them and set the flag registers  accordingly
- * hexSub16bit: Takes two 16-bit numbers as input and subtracts them and set the flag registers accordingly
- * decimalToHex: Takes a decimal number and converts it to equivalent hexadecimal
- * hexToDecimal: Takes an 8-bit or 16-bit number in hexadecimal and converts to decimal
- * validityRegister: Take a register in form of a string and validates the register
- * validityRegisterPair: Takes register in form of a string and validates for a valid register pair e.g. (B,C), (D,E) and (H,L) pair
- * validityHexadecimal: Takes a string and checks if it is a valid hexadecimal
- * validityFile: Takes a complete command in the form of a string and checks if the command is a valid 8085 microprocessor command
- * validityAddress: Takes a 16-bit address and checks if the current address is valid i.e. lies between 0000-FFFF
- * registerNumber: Converts a register into numeric format
- * increaseAddress: Takes a 16-bit address and increments it by 1
- * updateAddress: Takes the current program counter and based on the current command, update the program counter
- * complement: Takes a hexadecimal number and evaluates the complement of that number
- * operationSize: Computes the size compatible per operand
- * execution: Takes a command, registers, flag array, progam counter and memory to excute the current combination of instructions.
+**tool.h**
 
 The above module helps the other modules to perform required series of actions.
 
-1. arithmetic.h: This module wraps several arithmetic instructions for instance ADD, ADI, SUB, INR, DCR, INX, DCX, DAD, SUI. The commands have save similar functionality as defined by 8085 microprocessor.
+1. **arithmetic.h**: This module wraps several arithmetic instructions for instance ADD, ADI, SUB, INR, DCR, INX, DCX, DAD, SUI. The commands have save similar functionality as defined by 8085 microprocessor.
 
-1. jump.h: This module defines all the branching commands like JMP(jumping to a location), JC, JNC, JZ and JNZ.
+1. **jump.h**: This module defines all the branching commands like JMP(jumping to a location), JC, JNC, JZ and JNZ.
 
-1. load.h: This module defines all the load and store commands like MOV, MVI, LXI, LDA, STA, LHLD, SHLD, STAX, XCHG.
+1. **load.h**: This module defines all the load and store commands like MOV, MVI, LXI, LDA, STA, LHLD, SHLD, STAX, XCHG.
 
-1. logical.h: This module defines all the logical instructins like CMA and CMP.
+1. **logical.h**: This module defines all the logical instructins like CMA and CMP.
 
 more information about the above assembly level instructions can be found on http://scandftree.com/microprocessor/Instruction-Set-In-8085
 
@@ -55,38 +37,37 @@ more information about the above assembly level instructions can be found on htt
 Though the executable file of the emulator is provided with the complete code, to rebuild the code, 
 the program requires clang++ compiler. To install the compiler, enter the following command in the terminal
 
-**************************************************************************************************
-$ sudo apt-get install clang++	//install clang++
+```
+$ sudo apt-get install clang++		//install clang++
 $ make					//rebuild the code
 $ make clean				//delete the object files created in the process of rebuild
-**************************************************************************************************
+```
 
 ### Section 2.2: Run 8085-Emulator
-**************************************************************************************************
+```
 $ ./emulator 				//to run the emulator on terminal
-$ ./emulator addtwonumbers.asm	//to run the emulator with an assembly level file
-$ ./emulator --debugger		//to enable debugger
-**************************************************************************************************
+$ ./emulator addtwonumbers.asm		//to run the emulator with an assembly level file
+$ ./emulator --debugger			//to enable debugger
+```
 
 ### Section 2.3: Debugger
-The debugger feature enables to set breakpoints and execute code in steps and query the memory and register values simultaneously to see the functionality of 8085-emulator. The features present in the debugger are
-“b” to set breakpoints followed by line numbers where you want to set breakpoints. e.g. b 12 for setting breakpoint on line 12 
-“r” to run the program until end of program or a breakpoint is encountered
-“p” to print value of register or memory location. e.g. p A for printing value of register A p x2500 for printing value of location x2500 
-“s” to run the program, one instruction at a time 
-“q” to quit debugger
+The debugger feature enables to set breakpoints and execute code in steps and query the memory and register values simultaneously to see the functionality of 8085-emulator. The features present in the debugger are <br>
+“**b**” to set breakpoints followed by line numbers where you want to set breakpoints. e.g. b 12 for setting breakpoint on line 12 <br>
+“**r**” to run the program until end of program or a breakpoint is encountered <br>
+“**p**” to print value of register or memory location. e.g. p A for printing value of register A p x2500 for printing value of location x2500 <br>
+“**s**” to run the program, one instruction at a time <br>
+“**q**” to quit debugger <br>
 
 ## Section 3: Logic-based testing strategy
 
 We have displayed the RACC criteria while designing the testcases. The files used in logic based testing are:
 
-i.   validityFile.cpp:
-	The following method takes an instruction as an input and the predicate 
-		
+1.   **validityFile.cpp:**
+	The following method takes an instruction as an input and the predicate is taken into consideration. The first clause checks if the opcode is present in one of the registered opcodes e.g. MOV, HLD, the second clause checks if the number of operands are correct for the given opcode and to check if the current set of instruction does not contain any invalid character. e.g. MOV A,B which moves the value of register B to accumulator. Each line of instruction when fed through a file passes through this method.
+	
 		if(inRecord(tokens[0]) && argumentValidation(tokens,tokens[0]) && alien(copy))
-	
-	is taken into consideration. The first clause checks if the opcode is present in one of the registered opcodes e.g. MOV, HLD, the second clause checks if the number of operands are correct for the 		given opcode and to check if the current set of instruction does not contain any invalid character. e.g. MOV A,B which moves the value of register B to accumulator. Each line of instruction when fed 		through a file passes through this method.
-	
+		
+```
 	pA = B && C
 	pB = A && C
 	pC = A && B
@@ -102,17 +83,13 @@ i.   validityFile.cpp:
 	--------------------------------------------------
 	    T      T       T       T          LXI H,0000
 	    T      T       F       F          DCR a;
+``` 
 	    
-	    
-	    
-ii.  validityHexadecimal.cpp:
-	The following method takes a hexadecimal as an input and checks if it is a valid 8-bit data or 16-bit address
+1.  **validityHexadecimal.cpp:**
+	The following method takes a hexadecimal as an input and checks if it is a valid 8-bit data or 16-bit address. The below is the predicate of form A|B&C e.g. A0 is a valid data and 110A is a valid 16-bit address. The following method is reached from validityFile.cpp where it checks if the data associated with any opcode is valid.
 		
 		if((l == 2 || l == 4) && checkHex(data,l))
-		
-	The above is the predicate of form A|B&C e.g. A0 is a valid data and 110A is a valid 16-bit address.
-	The following method is reached from validityFile.cpp where it checks if the data associated with any opcode is valid.
-	
+```
 	pA = B' && C
 	pB = A' && C
 	pC = A  || B
@@ -130,15 +107,14 @@ ii.  validityHexadecimal.cpp:
 	    T      F       T       T             1D
 	    F      T       F       F           01H3
 	    T      F       F       F             0G
-	
-	 
-iii. SHLD.cpp
-	The following method is the implementation of SHLD command. The value of HL pair or the M registers is stored in the 16-bit address provided to the method. This method is reachable from the 		execution method directly called in the main function of the emulator. The predicate under review is 
+```
+
+1. **SHLD.cpp:**
+	The following method is the implementation of SHLD command. The value of HL pair or the M registers is stored in the 16-bit address provided to the method. This method is reachable from the execution method directly called in the main function of the emulator. The predicate under review is below. Here clause A checks if length of arg1 is of length 4, clause B checks if arg1 is a valid 16-bit address in the range, clause C checks if H register is empty, clause D checks if L register empty and clause E checks if the memory map is empty.
 	
 		if(l1 == 4 && validityAddress(arg1) && registers[5]!="" && registers[6]!="" && memory.empty() == false)
-		
-	Here clause A checks if length of arg1 is of length 4, clause B checks if arg1 is a valid 16-bit address in the range, clause C checks if H register is empty, clause D checks if L register empty 		and clause E checks if the memory map is empty.
 	
+```
 	pA = B && C && D && E
 	pB = A && C && D && E
 	pC = A && B && D && E
@@ -154,8 +130,9 @@ iii. SHLD.cpp
 	    T      T       F       T       T       F          2000, register["","","","","","","AB"],   map<1000,(MOV A,B)>
 	    T      T       T       F       T       F          2000, register["","","","","","01",""],   map<1000,(MOV A,B)>
 	    T      T       T       T       F       F          2000, register["","","","","","01","AB"], map<>
-	
-1.  validityData.cpp
+```
+
+1.  **validityData.cpp:**
 	THe following method takes a string as an input and checks if the given data is a valid 8-bit data. The predicate checks if the length of the string is 2 i.e. 8-bit value and the first and second characters are hexadecimal or not. The clauses are A,B and C. This method acts as a helper function to all the assembly level instructions which are ADI, DAD, INX, MVI, SET and SUI.
 	
 		if(l==2 && isHexadecimal(a[0]) && isHexadecimal(a[1]))
