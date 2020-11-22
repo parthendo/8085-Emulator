@@ -1,22 +1,24 @@
 # 8085-Emulator
 
 
-##Section 1: Introduction
+## Section 1: Introduction
 In computing, an emulator is hardware or software that enables one computer system to behave like another computer system. An emulator typically enables the host system to run software or use peripheral devices designed for the guest system.
+
 The current project at hand is an 8085-emulator which mimics the functionality of the 8-bit microprocessor. The 8085 microprocessor was introduced in 1976, it consisted of 8-bit data bus, registers and single byte instructions. The emulator provides a terminal to run assembly language instructions and produce outputs similar to the one obtained while working on the individual microprocessor. The emulator supports several arithmetic, increment/decrement and loading commands belonging to the 8-bit and 16-bit domain. Apart from this, the emulator also features a debugger which can set breakpoints and query the memory and the registers at a given instance to justify the working of the emulator.
+
 Along with this, we also provide two sample programs displaying bubble-sort and addition of two numbers to display the working of the emulator.
 The document is organised in the given order, section 2 lays an emphasis on the documentation required to understand the modules inside the emulator. Section 3 describes the testing scenario displaying the logic-based testing strategy where we try to display the chosen predicates follow the CACC criteria.
 
-##Section 2: 8085-Emulator
+## Section 2: 8085-Emulator
 There are 5 basic modules which constitute the entire functionality of the emulator. The 8-bit and the 16-bit commands can be categorized into four basic modules i.e.
-i.   arithmetic instructions
-ii.  jump instructions
-iii. load instructions
-iv.  logical instructions
+1.   arithmetic instructions
+1.  jump instructions
+1. load instructions
+1.  logical instructions
 
 All the instructions mentioned above utilize the fifth module which consist the basic tools required to support all the other modules.
 
-* tool.h: The current file consists the definition to the functions below
+1. tool.h: The current file consists the definition to the functions below
  * validityData: Takes an 8-bit data and checks for its validity 
  * hexAdd: Takes two 8-bit numbers as input and adds them and set the flag registers accordingly
  * hexSub: Takes two 8-bit numbers as input and subtracts them and set the flag registers accordingly
@@ -38,18 +40,18 @@ All the instructions mentioned above utilize the fifth module which consist the 
 
 The above module helps the other modules to perform required series of actions.
 
-arithmetic.h: This module wraps several arithmetic instructions for instance ADD, ADI, SUB, INR, DCR, INX, DCX, DAD, SUI. The commands have save similar functionality as defined by 8085 microprocessor.
+1. arithmetic.h: This module wraps several arithmetic instructions for instance ADD, ADI, SUB, INR, DCR, INX, DCX, DAD, SUI. The commands have save similar functionality as defined by 8085 microprocessor.
 
-jump.h: This module defines all the branching commands like JMP(jumping to a location), JC, JNC, JZ and JNZ.
+1. jump.h: This module defines all the branching commands like JMP(jumping to a location), JC, JNC, JZ and JNZ.
 
-load.h: This module defines all the load and store commands like MOV, MVI, LXI, LDA, STA, LHLD, SHLD, STAX, XCHG.
+1. load.h: This module defines all the load and store commands like MOV, MVI, LXI, LDA, STA, LHLD, SHLD, STAX, XCHG.
 
-logical.h: This module defines all the logical instructins like CMA and CMP.
+1. logical.h: This module defines all the logical instructins like CMA and CMP.
 
 more information about the above assembly level instructions can be found on http://scandftree.com/microprocessor/Instruction-Set-In-8085
 
 
-###Section 2.1: Compilation of the code
+### Section 2.1: Compilation of the code
 Though the executable file of the emulator is provided with the complete code, to rebuild the code, 
 the program requires clang++ compiler. To install the compiler, enter the following command in the terminal
 
@@ -59,14 +61,14 @@ $ make					//rebuild the code
 $ make clean				//delete the object files created in the process of rebuild
 **************************************************************************************************
 
-###Section 2.2: Run 8085-Emulator
+### Section 2.2: Run 8085-Emulator
 **************************************************************************************************
 $ ./emulator 				//to run the emulator on terminal
 $ ./emulator addtwonumbers.asm	//to run the emulator with an assembly level file
 $ ./emulator --debugger		//to enable debugger
 **************************************************************************************************
 
-###Section 2.3: Debugger
+### Section 2.3: Debugger
 The debugger feature enables to set breakpoints and execute code in steps and query the memory and register values simultaneously to see the functionality of 8085-emulator. The features present in the debugger are
 “b” to set breakpoints followed by line numbers where you want to set breakpoints. e.g. b 12 for setting breakpoint on line 12 
 “r” to run the program until end of program or a breakpoint is encountered
@@ -74,7 +76,7 @@ The debugger feature enables to set breakpoints and execute code in steps and qu
 “s” to run the program, one instruction at a time 
 “q” to quit debugger
 
-##Section 3: Logic-based testing strategy
+## Section 3: Logic-based testing strategy
 
 We have displayed the RACC criteria while designing the testcases. The files used in logic based testing are:
 
@@ -153,13 +155,11 @@ iii. SHLD.cpp
 	    T      T       T       F       T       F          2000, register["","","","","","01",""],   map<1000,(MOV A,B)>
 	    T      T       T       T       F       F          2000, register["","","","","","01","AB"], map<>
 	
-iv.  validityData.cpp
-	THe following method takes a string as an input and checks if the given data is a valid 8-bit data. The predicate
+1.  validityData.cpp
+	THe following method takes a string as an input and checks if the given data is a valid 8-bit data. The predicate checks if the length of the string is 2 i.e. 8-bit value and the first and second characters are hexadecimal or not. The clauses are A,B and C. This method acts as a helper function to all the assembly level instructions which are ADI, DAD, INX, MVI, SET and SUI.
 	
 		if(l==2 && isHexadecimal(a[0]) && isHexadecimal(a[1]))
-		
-	checks if the length of the string is 2 i.e. 8-bit value and the first and second characters are hexadecimal or not. The clauses are A,B and C. This method acts as a helper function to all the 	assembly level instructions which are ADI, DAD, INX, MVI, SET and SUI.
-	
+```	
 	pA = B && C
 	pB = A && C
 	pC = A && B
@@ -174,17 +174,18 @@ iv.  validityData.cpp
 	    T      F       T       F            Z1
 	--------------------------------------------------
 	    T      T       T       T            1A
-	    T      T       F       F            1Z
-	    	    
-###Section 3.1: Executing tests or unit testing
+	    T      T       F       F            1Z   
+```
+
+### Section 3.1: Executing tests or unit testing
 We have used Google Test Framework for performing unit testing on the code base. Follow the commands below to perform installation of Google Test Framework and unit testing. 
-**************************************************************************************************
+```
 $ cd test/GTest\ Framework/	// toggle to the GTest or the google test framework directory
-$ cd ..			// toggles back to the test directory
+$ cd ..				// toggles back to the test directory
 $ cmake CMakeLists.txt		// generates the makefile for running test
 $ make				// builds the executable for testing
 $ ./runTests			// performs using testing
-**************************************************************************************************
+```
 
 The emulator is designed using C++. To compile the project files, copy all the files from folder src to the main folder and type command “make” on the terminal.This will compile all the code files and create the object file “setup” which will be used to run the emulator. The emulator works on two modes of input. User can provide the code via input file (.asm) or one could also write it on the terminal. The user can run the whole code at once or he can also run it in the debugger mode. We have also provided a dummy code of bubble sort in the file bubblesort.asm(enter the address 2000 as the code is written using 2000 as the starting address).
 
