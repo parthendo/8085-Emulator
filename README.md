@@ -158,6 +158,7 @@ We have displayed the RACC criteria while designing the testcases. The files use
 We have used Google Test Framework for performing unit testing on the code base. Follow the commands below to perform installation of Google Test Framework and unit testing. 
 ```
 $ cd test/GTest\ Framework/	// toggle to the GTest or the google test framework directory
+$ bash script.sh		// install google test framework
 $ cd ..				// toggles back to the test directory
 $ cmake CMakeLists.txt		// generates the makefile for running test
 $ make				// builds the executable for testing
